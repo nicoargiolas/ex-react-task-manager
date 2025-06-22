@@ -1,8 +1,11 @@
 // Importazione Route
-import { BrowserRouter, Routes, Route, Link, NavLink } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 // Importazione layout
 import DefaultLayout from "./layouts/DefaultLayout";
+
+// Importazione provider
+import GlobalProvider from "./context/GlobalContext";
 
 // Importazione pagine
 import TaskList from "./pages/TaskList";
@@ -15,14 +18,16 @@ function App() {
 
   return (
     <>
-      <BrowserRouter>
-        <Routes>
-          <Route element={<DefaultLayout />}>
-            <Route index element={<TaskList />} />
-            <Route path="/addtask" element={<AddTask />} />
-          </Route>
-        </Routes>
-      </BrowserRouter>
+      <GlobalProvider>
+        <BrowserRouter>
+          <Routes>
+            <Route element={<DefaultLayout />}>
+              <Route index element={<TaskList />} />
+              <Route path="/addtask" element={<AddTask />} />
+            </Route>
+          </Routes>
+        </BrowserRouter>
+      </GlobalProvider>
     </>
   )
 }
