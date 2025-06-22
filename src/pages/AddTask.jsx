@@ -1,4 +1,5 @@
-import { useRef, useState, useMemo } from "react"
+import { useRef, useState, useMemo, useContext } from "react"
+import { GlobalContext } from "../context/GlobalContext";
 
 
 export default function AddTask() {
@@ -6,23 +7,33 @@ export default function AddTask() {
     const descRef = useRef();
     const statusRef = useRef();
 
+    const { addTask } = useContext(GlobalContext)
+
     const symbols = "!@#$%^&*()-_=+[]{}|;:'\\\",.<>?/`~";
 
     const isTitleValid = useMemo(() => {
         return ![...title].some(c => symbols.includes(c))
     }, [title])
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault()
 
-        if (isTitleValid) {
-            console.log(`Task aggiunta con i seguenti dati:
-                Nome: ${title}
-                Descrizione: ${descRef.current.value}
-                Stato: ${statusRef.current.value}`);
-        } else {
-            alert("Il nome della task non può includere simboli")
+        if (!isTitleValid) {
+            alert("Il nome della task non può includere simboli");
+            return
         }
+        try {
+            await addTask({ 'title': title, 'description': descRef.current.value, 'status': statusRef.current.value });
+            alert("Task aggiunta con successo!");
+
+            // Reset Form
+            setTitle("");
+            descRef.current.value = "";
+            statusRef.current.value = "To do"
+        } catch (error) {
+            alert(error.message);
+        }
+
     }
 
     return (
