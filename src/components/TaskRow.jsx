@@ -5,9 +5,9 @@ function TaskRow(props) {
 
     // Oggetto che gestisce il colore della casella in base allo stato, viene richiamato nella casella
     const colors = {
-        'To do': 'red',
-        'Doing': 'yellow',
-        'Done': 'green'
+        'To do': '#e74c3c',   // rosso
+        'Doing': '#f1c40f',   // giallo
+        'Done': '#2ecc71'     // verde
     }
 
     return (

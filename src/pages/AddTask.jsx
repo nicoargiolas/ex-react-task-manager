@@ -7,7 +7,7 @@ export default function AddTask() {
     const descRef = useRef();
     const statusRef = useRef();
 
-    const { addTask } = useContext(GlobalContext)
+    const { addTask } = useContext(GlobalContext);
 
     const symbols = "!@#$%^&*()-_=+[]{}|;:'\\\",.<>?/`~";
 
@@ -38,8 +38,6 @@ export default function AddTask() {
 
     return (
         <>
-            <h1> Pagina AddTask </h1>
-
             <form onSubmit={handleSubmit}>
                 <section>
                     <input type="text"
