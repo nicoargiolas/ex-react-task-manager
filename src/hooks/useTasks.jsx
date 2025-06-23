@@ -53,7 +53,19 @@ export default function useTasks() {
         }
     };
 
-    const updateTask = () => { };
+    const updateTask = async (updatedTask) => {
+        try {
+            const response = await axios.put(`${import.meta.env.VITE_API_URL}/tasks/${updatedTask.id}`, updatedTask, { headers: { "Content-Type": "application/json" } });
+            if (response.data.success) {
+                const newTask = response.data.task;
+                setTasks(tasks.map(t => t.id === newTask.id ? newTask : t))
+            } else {
+                throw new Error(response.data.message);
+            }
+        } catch (error) {
+            throw new Error(`Impossibile modificare la task`)
+        }
+    };
 
     return { tasks, addTask, removeTask, updateTask }
 }
