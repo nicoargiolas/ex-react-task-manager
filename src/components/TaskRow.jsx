@@ -1,4 +1,5 @@
 import { memo } from 'react'
+import { NavLink } from 'react-router-dom';
 
 function TaskRow(props) {
     const { id, title, status, createdAt } = props;
@@ -12,7 +13,7 @@ function TaskRow(props) {
 
     return (
         <tr>
-            <td> {title} </td>
+            <td> <NavLink to={`/tasks/${id}`}> {title} </NavLink> </td>
             <td style={{ backgroundColor: colors[status] }}> {status} </td>
             <td> {createdAt} </td>
         </tr>
