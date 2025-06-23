@@ -32,16 +32,27 @@ export default function useTasks() {
             const response = await axios.post(`${import.meta.env.VITE_API_URL}/tasks`, taskToAdd, { headers: { "Content-Type": "application/json" } });
             if (response.data.success) {
                 setTasks([...tasks, response.data.task])
-
             } else {
-                throw new Error(response.message)
+                throw new Error(response.data.message)
             }
         } catch (error) {
             throw new Error(`Impossibile aggiungere la task`)
         }
     };
 
-    const removeTask = () => { };
+    const removeTask = async (taskId) => {
+        try {
+            const response = await axios.delete(`${import.meta.env.VITE_API_URL}/tasks/${taskId}`, { headers: { "Content-Type": "application/json" } });
+            if (response.data.success) {
+                setTasks(tasks.filter(t => t.id !== parseInt(taskId)));
+            } else {
+                throw new Error(response.data.message)
+            }
+        } catch (error) {
+            throw new Error(`Impossibile rimuovere la task`)
+        }
+    };
+
     const updateTask = () => { };
 
     return { tasks, addTask, removeTask, updateTask }

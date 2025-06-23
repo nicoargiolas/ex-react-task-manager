@@ -3,7 +3,9 @@ import { GlobalContext } from "../context/GlobalContext";
 import TaskRow from "../components/TaskRow";
 
 export default function TaskList() {
-    const { tasks } = useContext(GlobalContext)
+    const { tasks } = useContext(GlobalContext);
+    console.log("Rerender tasks:", tasks);
+
 
     return (
         <>
