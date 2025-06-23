@@ -154,3 +154,63 @@ button[type="submit"] {
 button[type="submit"]:hover {
     background-color: #555;
 }
+
+
+/* MODALE */
+.modal-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    /* sfondo opaco */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    /* assicurati che sia sopra a tutto */
+}
+
+.modal {
+    background-color: #1f1f1f;
+    color: #e0e0e0;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.7);
+    max-width: 500px;
+    width: 90%;
+    text-align: center;
+}
+
+.modal h4 {
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+}
+
+.modal p {
+    font-size: 1rem;
+    margin-bottom: 2rem;
+}
+
+.modal div {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.modal button {
+    flex: 1;
+    background-color: #3a3a3a;
+    color: #e0e0e0;
+    border: none;
+    padding: 0.8rem 1.2rem;
+    font-size: 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.modal button:hover {
+    background-color: #555;
+}
