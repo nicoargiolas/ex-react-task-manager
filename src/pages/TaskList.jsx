@@ -1,4 +1,4 @@
-import { useContext, useState, useMemo } from "react";
+import { useContext, useState, useMemo, useCallback, useRef, useEffect } from "react";
 import { GlobalContext } from "../context/GlobalContext";
 import TaskRow from "../components/TaskRow";
 
@@ -7,6 +7,23 @@ export default function TaskList() {
 
     const [sortBy, setSortBy] = useState("createdAt");
     const [sortOrder, setSortOrder] = useState(1);
+    const [searchQuery, setSearchQuery] = useState("");
+
+    const inputRef = useRef();
+
+    function debounce(callback, delay) {
+        let timer;
+        return (value) => {
+            clearTimeout(timer);
+            timer = setTimeout(() => {
+                callback(value)
+            }, delay)
+        }
+    }
+
+    const debouncedSearch = useCallback(debounce(() => {
+        setSearchQuery(inputRef.current.value)
+    }, 500), []);
 
     const handleSort = (col) => {
         if (col === sortBy) {
@@ -15,7 +32,7 @@ export default function TaskList() {
             setSortBy(col);
             setSortOrder(1);
         }
-    }
+    };
 
     const sortStatus = {
         "To do": 0,
@@ -23,11 +40,9 @@ export default function TaskList() {
         "Done": 2
     };
 
-
-
     const sortedTasks = useMemo(() => {
-        const tasksCopy = [...tasks];
-        return tasksCopy.sort((a, b) => {
+        const filteredTasks = tasks.filter(t => t.title.toLowerCase().includes(searchQuery.trim().toLowerCase()));
+        return filteredTasks.sort((a, b) => {
             let result = 0;
 
             if (sortBy === "title") {
@@ -40,23 +55,28 @@ export default function TaskList() {
 
             return result * sortOrder
         })
-    }, [tasks, sortBy, sortOrder])
+    }, [tasks, sortBy, sortOrder, searchQuery])
 
 
     return (
         <>
-            <table>
-                <thead>
-                    <tr>
-                        <th onClick={() => handleSort("title")}> Nome {sortBy === 'title' ? (sortOrder === -1 ? '↑' : '↓') : ''}</th>
-                        <th onClick={() => handleSort("status")}> Stato {sortBy === 'status' ? (sortOrder === -1 ? '↑' : '↓') : ''}</th>
-                        <th onClick={() => handleSort("createdAt")}> Data di creazione {sortBy === 'createdAt' ? (sortOrder === -1 ? '↑' : '↓') : ''}</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {sortedTasks.map(t => <TaskRow key={t.id} {...t} />)}
-                </tbody>
-            </table>
+            <div>
+                <input type="text" placeholder="Cerca..." ref={inputRef} onChange={() => debouncedSearch()} />
+            </div>
+            <div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th onClick={() => handleSort("title")}> Nome {sortBy === 'title' ? (sortOrder === -1 ? '↑' : '↓') : ''}</th>
+                            <th onClick={() => handleSort("status")}> Stato {sortBy === 'status' ? (sortOrder === -1 ? '↑' : '↓') : ''}</th>
+                            <th onClick={() => handleSort("createdAt")}> Data di creazione {sortBy === 'createdAt' ? (sortOrder === -1 ? '↑' : '↓') : ''}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {sortedTasks.map(t => <TaskRow key={t.id} {...t} />)}
+                    </tbody>
+                </table></div>
+
         </>
     )
 }
