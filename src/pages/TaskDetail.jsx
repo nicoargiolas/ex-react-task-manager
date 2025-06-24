@@ -42,17 +42,29 @@ export default function TaskDetail() {
     const [deleteShow, setDeleteShow] = useState(false);
     const [updateShow, setUpdateShow] = useState(false);
 
+    // Oggetto che gestisce il colore della casella in base allo stato, viene richiamato nella casella
+    const colors = {
+        'To do': '#e74c3c',   // rosso
+        'Doing': '#f1c40f',   // giallo
+        'Done': '#2ecc71'     // verde
+    }
+
     if (!task) return null; // evita crash durante il rendering
 
     return (
         <>
-            <div>
-                <h1> {task.title} </h1>
+            <div className="task-details">
+                <div className="title-container">
+                    <h1> {task.title} </h1>
+                    <h1 className="detail-status"
+                        style={{ backgroundColor: colors[task.status] }}> {task.status} </h1>
+                </div>
                 <p> {task.description} </p>
-                <p> {task.status} </p>
                 <p> Data di creazione: {task.createdAt} </p>
-                <button onClick={() => setDeleteShow(true)}> Elimina task </button>
-                <button onClick={() => setUpdateShow(true)}> Modifica task </button>
+                <div className="btn-container">
+                    <button onClick={() => setDeleteShow(true)}> Elimina task </button>
+                    <button onClick={() => setUpdateShow(true)}> Modifica task </button>
+                </div>
             </div>
             <Modal
                 title="Elimina Task"

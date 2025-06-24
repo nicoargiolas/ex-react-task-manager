@@ -22,13 +22,15 @@ header {
 }
 
 .navbar {
+    margin: 0 auto;
+    width: 95%;
     display: flex;
     justify-content: flex-start;
     gap: 2rem;
 }
 
 .navbar a {
-    color: #f0f0f0;
+    color: #e0e0e0;
     text-decoration: none;
     font-weight: 500;
     font-size: 1.1rem;
@@ -42,6 +44,18 @@ header {
     background-color: #3a3a4a;
 }
 
+
+/* TASK LIST */
+.tasklist-container {
+    width: 95%;
+    margin: 0 auto;
+}
+
+.searchbar {
+    margin: 1.5rem 0;
+    max-width: 600px;
+    width: 100%;
+}
 
 /* TASK TABLE */
 table {
@@ -71,6 +85,7 @@ th {
     text-transform: uppercase;
     letter-spacing: 0.05em;
     border-bottom: 2px solid #3a3a3a;
+    cursor: pointer;
 }
 
 tr:nth-child(even) {
@@ -87,11 +102,46 @@ tr:hover {
 
 /* Per la colonna status */
 td[style] {
-    color: #fff;
+    color: #121212;
     font-weight: bold;
     border-radius: 6px;
     padding: 0.5rem;
     text-align: center;
+}
+
+/* Per dare larghezza fissa alle colonne */
+table {
+    table-layout: fixed;
+}
+
+thead th:nth-child(1),
+tbody td:nth-child(1) {
+    width: 50%;
+}
+
+thead th:nth-child(2),
+tbody td:nth-child(2) {
+    width: 20%;
+}
+
+thead th:nth-child(3),
+tbody td:nth-child(3) {
+    width: 30%;
+}
+
+/* NavLink delle row */
+.task-link {
+    color: #e0e0e0;
+    text-decoration: none;
+}
+
+.task-link:hover {
+    text-decoration: underline;
+}
+
+.task-link:visited,
+.task-link:active {
+    color: #e0e0e0;
 }
 
 /* ADD TASK */
@@ -152,6 +202,67 @@ button[type="submit"] {
 }
 
 button[type="submit"]:hover {
+    background-color: #555;
+}
+
+
+/* TASK DETAIL */
+.task-details {
+    background-color: #1f1f1f;
+    padding: 1.5rem 2rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    max-width: 700px;
+    margin: 2rem auto;
+    color: #e0e0e0;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.task-details .title-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.task-details h1 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #f0f0f0;
+}
+
+.task-details p {
+    font-size: 1rem;
+    line-height: 1.4;
+}
+
+.task-details .detail-status {
+    font-weight: bold;
+    border-radius: 6px;
+    padding: 0.4rem 0.8rem;
+    width: fit-content;
+    text-align: center;
+    color: #121212;
+}
+
+.task-details .btn-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.task-details button {
+    background-color: #3a3a3a;
+    color: #e0e0e0;
+    border: none;
+    padding: 0.8rem 1.2rem;
+    font-size: 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    width: fit-content;
+}
+
+.task-details button:hover {
     background-color: #555;
 }
 

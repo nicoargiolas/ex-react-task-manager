@@ -13,7 +13,7 @@ function TaskRow(props) {
 
     return (
         <tr>
-            <td> <NavLink to={`/tasks/${id}`}> {title} </NavLink> </td>
+            <td> <NavLink to={`/tasks/${id}`} className="task-link"> {title} </NavLink> </td>
             <td style={{ backgroundColor: colors[status] }}> {status} </td>
             <td> {createdAt} </td>
         </tr>

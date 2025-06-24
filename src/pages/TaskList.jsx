@@ -60,23 +60,25 @@ export default function TaskList() {
 
     return (
         <>
-            <div>
-                <input type="text" placeholder="Cerca..." ref={inputRef} onChange={() => debouncedSearch()} />
+            <div className="tasklist-container">
+                <div>
+                    <input className="searchbar" type="text" placeholder="Cerca..." ref={inputRef} onChange={() => debouncedSearch()} />
+                </div>
+                <div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th onClick={() => handleSort("title")}> Nome {sortBy === 'title' ? (sortOrder === -1 ? '↑' : '↓') : ''}</th>
+                                <th onClick={() => handleSort("status")}> Stato {sortBy === 'status' ? (sortOrder === -1 ? '↑' : '↓') : ''}</th>
+                                <th onClick={() => handleSort("createdAt")}> Data di creazione {sortBy === 'createdAt' ? (sortOrder === -1 ? '↑' : '↓') : ''}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {sortedTasks.map(t => <TaskRow key={t.id} {...t} />)}
+                        </tbody>
+                    </table>
+                </div>
             </div>
-            <div>
-                <table>
-                    <thead>
-                        <tr>
-                            <th onClick={() => handleSort("title")}> Nome {sortBy === 'title' ? (sortOrder === -1 ? '↑' : '↓') : ''}</th>
-                            <th onClick={() => handleSort("status")}> Stato {sortBy === 'status' ? (sortOrder === -1 ? '↑' : '↓') : ''}</th>
-                            <th onClick={() => handleSort("createdAt")}> Data di creazione {sortBy === 'createdAt' ? (sortOrder === -1 ? '↑' : '↓') : ''}</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {sortedTasks.map(t => <TaskRow key={t.id} {...t} />)}
-                    </tbody>
-                </table></div>
-
         </>
     )
 }
