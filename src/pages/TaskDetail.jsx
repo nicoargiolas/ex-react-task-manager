@@ -60,7 +60,7 @@ export default function TaskDetail() {
                         style={{ backgroundColor: colors[task.status] }}> {task.status} </h1>
                 </div>
                 <p> {task.description} </p>
-                <p> Data di creazione: {task.createdAt} </p>
+                <p> Data di creazione: {new Date(task.createdAt).toLocaleDateString()} </p>
                 <div className="btn-container">
                     <button onClick={() => setDeleteShow(true)}> Elimina task </button>
                     <button onClick={() => setUpdateShow(true)}> Modifica task </button>

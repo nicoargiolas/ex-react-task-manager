@@ -15,7 +15,7 @@ function TaskRow(props) {
         <tr>
             <td> <NavLink to={`/tasks/${id}`} className="task-link"> {title} </NavLink> </td>
             <td style={{ backgroundColor: colors[status] }}> {status} </td>
-            <td> {createdAt} </td>
+            <td> {new Date(createdAt).toLocaleDateString()} </td>
         </tr>
     )
 }
